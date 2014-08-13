@@ -83,6 +83,7 @@ function applyQuota(self, options, resp, next) {
       resp.setHeader('X-RateLimit-Limit', reply.allowed);
       resp.setHeader('X-RateLimit-Remaining', reply.allowed - reply.used);
       resp.setHeader('X-RateLimit-Reset', (reply.expiryTime / 1000) >> 0);
+      resp.setHeader('Content-Type', 'application/json');
       if (!reply.isAllowed) {
         if (debug.enabled) { debug('Quota exceeded: ' + options.identifier); }
         resp.statusCode = 403;
